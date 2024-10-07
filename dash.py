@@ -8,9 +8,27 @@ class Handler():
     def __init__(self):
         global builder, conn, MD
         matplotlib.use('GTK3Agg')
+        self.fetch_instruments()
         
     def b(self,id):
         return builder.get_object(id)
+    def fetch_instruments(self):
+        list1 = self.b('lstInstruments1')
+
+        instruments = ['A','B']
+        for instrument in instruments:
+            button = Gtk.Button.new_with_label(instrument)
+            button.connect("pressed",self.display_instrument)
+            row = Gtk.ListBoxRow()
+            row.add(button)
+            list1.insert(row,-1)
+        list1.show_all()
+    def display_instrument(self,button):
+        heading1 = self.b('lblHeading1')
+        symbol = button.get_label()
+        heading1.set_text(symbol)
+        # self.display_historical_chart(symbol)
+        # self.display_current_chart(symbol)
     def connect(self,button):
         pass
     def refresh(self,button):
